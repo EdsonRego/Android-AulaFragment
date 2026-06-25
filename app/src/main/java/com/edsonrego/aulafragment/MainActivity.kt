@@ -1,12 +1,19 @@
 package com.edsonrego.aulafragment
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.edsonrego.aulafragment.fragments.ChamadasFragment
+import com.edsonrego.aulafragment.fragments.ConversasFragment
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var btnConversas: Button
+    private lateinit var btnChamadas: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -15,6 +22,32 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        /* val fragmentManager = supportFragmentManager.beginTransaction()
+
+        fragmentManager.add(R.id.fragment_conteudo, ConversasFragment())
+
+        fragmentManager.commit()*/
+
+        btnConversas = findViewById(R.id.btn_conversas)
+        btnChamadas = findViewById(R.id.btn_chamadas)
+
+        val conversasFragment = ConversasFragment()
+
+        btnConversas.setOnClickListener {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_conteudo, conversasFragment )
+                .commit()
+        }
+
+        btnChamadas.setOnClickListener {
+            supportFragmentManager
+                .beginTransaction()
+                //.replace(R.id.fragment_conteudo, ChamadasFragment())
+                .remove(conversasFragment)
+                .commit()
         }
     }
 }
