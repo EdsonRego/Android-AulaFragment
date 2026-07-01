@@ -1,6 +1,7 @@
 package com.edsonrego.aulafragment
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -30,24 +31,48 @@ class MainActivity : AppCompatActivity() {
 
         fragmentManager.commit()*/
 
+        Log.i("ciclo_vida", "Activity onCreate")
+
         btnConversas = findViewById(R.id.btn_conversas)
         btnChamadas = findViewById(R.id.btn_chamadas)
-
-        val conversasFragment = ConversasFragment()
 
         btnConversas.setOnClickListener {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragment_conteudo, conversasFragment )
+                .replace(R.id.fragment_conteudo, ConversasFragment() )
                 .commit()
         }
 
         btnChamadas.setOnClickListener {
             supportFragmentManager
                 .beginTransaction()
-                //.replace(R.id.fragment_conteudo, ChamadasFragment())
-                .remove(conversasFragment)
+                .replace(R.id.fragment_conteudo, ChamadasFragment())
                 .commit()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.i("ciclo_vida", "Activity onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("ciclo_vida", "Activity onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("ciclo_vida", "Activity onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i("ciclo_vida", "Activity onStop")
+    }
+
+    override fun onDestroy() {
+        Log.i("ciclo_vida", "Activity onDestroy")
+        super.onDestroy()
     }
 }
